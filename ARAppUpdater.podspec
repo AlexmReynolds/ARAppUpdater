@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "ARAppUpdater"
   s.version          = "0.1.0"
-  s.summary          = "A short description of ARAppUpdater."
+  s.summary          = "A simple to user app updater that can check for newer version"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,14 +17,15 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
+ARAppUpdater allows you to check for newer app versions and require or not require an update. You can check the app store for updates by passing in an app id or can check another url for updates. This is useful if your app is not on the app store or if you want more control on what is a required update
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/ARAppUpdater"
+  s.homepage         = "https://github.com/alexmreynolds/ARAppUpdater"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Alex M Reynolds" => "alex.michael.reynolds@gmail.com" }
   s.source           = { :git => "https://github.com/alexmreynolds/ARAppUpdater.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+s.social_media_url = 'https://twitter.com/alexmreynolds'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
