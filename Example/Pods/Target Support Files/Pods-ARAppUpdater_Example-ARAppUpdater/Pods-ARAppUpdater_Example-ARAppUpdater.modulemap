@@ -1,0 +1,6 @@
+framework module ARAppUpdater {
+  umbrella header "Pods-ARAppUpdater_Example-ARAppUpdater-umbrella.h"
+
+  export *
+  module * { export * }
+}
