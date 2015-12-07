@@ -9,6 +9,31 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+To check for an update from the App store simply do
+
+```objc
+ARAppUpdater *updater = [[ARAppUpdater alloc] init];
+[updater checkForUpdate:^{
+
+}];
+```
+You can also force an update by passing in the kAPAUpdateRequired key as an option
+```objc
+ARAppUpdater *updater = [[ARAppUpdater alloc] initWithOptions@{kAPAUpdateRequired : @YES}];
+[updater checkForUpdate:^{
+
+}];
+```
+In order to check for updates by using a JSON response from a location other than the app store pass in a custom url and key path in the options
+
+```objc
+ARAppUpdater *updater = [[ARAppUpdater alloc] initWithOptions:@{kAPAUpdateRequired : @YES, kAPACustomVersionKeyPath : @"data.minimum_release.version", kAPACustomVersionURL : @"http://api-stage.vacasait.com/clients/validation/ios-housekeeper-app"}];
+[updater checkForUpdate:^{
+
+}];
+```
+
+
 ## Requirements
 
 ## Installation

@@ -7,7 +7,7 @@
 //
 
 #import "ARAViewController.h"
-
+#import <ARAppUpdater/ARAppUpdater.h>
 @interface ARAViewController ()
 
 @end
@@ -17,6 +17,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    ARAppUpdater *updater = [[ARAppUpdater alloc] initWithOptions:@{kAPAUpdateRequired : @YES, kAPACustomVersionKeyPath : @"data.minimum_release.version", kAPACustomVersionURL : @"http://api-stage.vacasait.com/clients/validation/ios-housekeeper-app"}];
+    [updater checkForUpdate:^{
+        
+    }];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
