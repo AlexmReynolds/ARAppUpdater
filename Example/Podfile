@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'ARAppUpdater_Example', :exclusive => true do
+  pod "ARAppUpdater", :path => "../"
+end
+
+target 'ARAppUpdater_Tests', :exclusive => true do
+  pod "ARAppUpdater", :path => "../"
+
+  
+end
