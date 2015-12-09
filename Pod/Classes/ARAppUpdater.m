@@ -18,7 +18,8 @@ NSString const *kAPAAppId                   = @"kAPAAppId";
 
 
 static NSString *CURRENT_VERSION;
-NSString * const HHAAppUpdaterMinimumAppVersionRequired = @"min_required_app_version";
+NSString * const ARAppUpdaterMinimumAppVersionRequired = @"min_required_app_version";
+NSString * const ARAppUpdaterShowAlertKey = @"ARAppUpdaterShowAlertKey";
 
 typedef void(^updaterCompletionBlock)(void);
 
@@ -91,7 +92,7 @@ typedef void(^updaterCompletionBlock)(void);
 - (void)compareResults:(NSString*)version
 {
     
-    if ([self currentVerion:[self currentVersion] isOlderThanAppStoreVersion:version]) {
+    if ([self currentVerion:[self currentVersion] isOlderThanAppStoreVersion:version] && [self shouldShowUpdateAlert]) {
         [self showUpdateModal];
     } else {
         if(self.completion)
@@ -115,12 +116,19 @@ typedef void(^updaterCompletionBlock)(void);
     
     if(![self forceUpdate]){
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"cancel modal button") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:ARAppUpdaterShowAlertKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }]];
     }
     
     [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:alert animated:YES completion:nil];
 }
 
+- (BOOL)shouldShowUpdateAlert
+{
+    BOOL alreadyShown = [[[NSUserDefaults standardUserDefaults] objectForKey:ARAppUpdaterShowAlertKey] boolValue];
+    return !alreadyShown && ![self forceUpdate];
+}
 - (NSString*)currentVersion { return CURRENT_VERSION;}
 
 
