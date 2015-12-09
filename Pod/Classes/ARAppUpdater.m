@@ -93,7 +93,7 @@ typedef void(^updaterCompletionBlock)(void);
 {
     
     if ([self currentVerion:[self currentVersion] isOlderThanAppStoreVersion:version] && [self shouldShowUpdateAlertForVersion:version]) {
-        [self showUpdateModal];
+        [self showUpdateModal:version];
     } else {
         if(self.completion)
             self.completion();
@@ -105,7 +105,7 @@ typedef void(^updaterCompletionBlock)(void);
     return [minVersion compare:version options:NSNumericSearch] == NSOrderedDescending;
 }
 
-- (void)showUpdateModal
+- (void)showUpdateModal:(NSString*)version
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Update Available", @"Updater Modal Title") message:NSLocalizedString(@"An update is available in the app store", @"Update modal messahe") preferredStyle:UIAlertControllerStyleAlert];
     
@@ -116,7 +116,7 @@ typedef void(^updaterCompletionBlock)(void);
     
     if(![self forceUpdate]){
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"cancel modal button") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:ARAppUpdaterShowAlertKey];
+            [[NSUserDefaults standardUserDefaults] setObject:version forKey:ARAppUpdaterShowAlertKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }]];
     }
