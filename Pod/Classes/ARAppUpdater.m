@@ -92,7 +92,7 @@ typedef void(^updaterCompletionBlock)(void);
 - (void)compareResults:(NSString*)version
 {
     
-    if ([self currentVerion:[self currentVersion] isOlderThanAppStoreVersion:version] && [self shouldShowUpdateAlert]) {
+    if ([self currentVerion:[self currentVersion] isOlderThanAppStoreVersion:version] && [self shouldShowUpdateAlertForVersion:version]) {
         [self showUpdateModal];
     } else {
         if(self.completion)
@@ -124,10 +124,15 @@ typedef void(^updaterCompletionBlock)(void);
     [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:alert animated:YES completion:nil];
 }
 
-- (BOOL)shouldShowUpdateAlert
+- (BOOL)shouldShowUpdateAlertForVersion:(NSString*)version
 {
-    BOOL alreadyShown = [[[NSUserDefaults standardUserDefaults] objectForKey:ARAppUpdaterShowAlertKey] boolValue];
-    return !alreadyShown && ![self forceUpdate];
+    NSString *oldVersion = [[NSUserDefaults standardUserDefaults] objectForKey:ARAppUpdaterShowAlertKey];
+    if(oldVersion){
+        return ![oldVersion isEqualToString:version] && ![self forceUpdate];
+
+    }else {
+        return YES;
+    }
 }
 - (NSString*)currentVersion { return CURRENT_VERSION;}
 
